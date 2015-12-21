@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <h3>Your Index no: {{ indexNo }}</h3>
+    <h4>Your marks: {{ marks }}</h4>
+    <a href="{{ path('applypage') }}">Show Scholarship Application Form</a>
+{% endblock %}

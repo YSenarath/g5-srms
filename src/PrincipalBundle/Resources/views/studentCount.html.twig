@@ -1,0 +1,34 @@
+{% extends '@Principal/base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <h1>{{ school.name }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    <table class="table table-condensed" style="width: 450pt" align="center">
+        <thead>
+        <tr>
+            <th>Student Index</th>
+            <th>Name</th>
+            <th>Marks</th>
+            <th>Approved</th>
+            <th>View</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for stuApplication in applications %}
+            <tr>
+                <td>{{ stuApplication.studentIndex }}</td>
+                <td>{{ stuApplication.name }}</td>
+                <td>{{ stuApplication.marks}}</td>
+                <td>{{ stuApplication.approved}}</td>
+                <td><a href="{{ path('viewPage') }}?id={{ stuApplication.studentIndex }}">View</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,12 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+student:
+    resource: "@StudentBundle/Controller/"
+    type:     annotation
+principal:
+    resource: "@PrincipalBundle/Controller/"
+    type:     annotation
+admin:
+    resource: "@StaffBundle/Controller/"
+    type:     annotation
