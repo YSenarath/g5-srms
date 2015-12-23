@@ -2,20 +2,27 @@
 
 {% block title %}Application{% endblock %}
 
+{% form_theme form 'AppBundle:Form:bootstrap_3_layout.html.twig' %}
+
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
-    {{ form_row(form.studentIndex) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.currentSchool) }}
-    {{ form_row(form.marks) }}
-    {{ form_label(form.appliedSchools) }}
-    <ul class="appliedSchools" data-prototype="{{ form_widget(form.appliedSchools.vars.prototype)|e }}">
-        {% for school in form.appliedSchools %}
-            <li> {{ form_widget(school) }} </li>
-        {% endfor %}
-    </ul>
-    {{ form_end(form) }}
+    <dev class="container-fluid">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.studentIndex) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.currentSchool) }}
+            {{ form_row(form.marks) }}
+            {{ form_label(form.appliedSchools) }}
+            <ul class="appliedSchools" data-prototype="{{ form_widget(form.appliedSchools.vars.prototype)|e }}">
+                {% for school in form.appliedSchools %}
+                    <li> {{ form_widget(school) }} </li>
+                {% endfor %}
+            </ul>
+            {{ form_end(form) }}
+        </div>
+    </dev>
 {% endblock %}
 
 {% block javascripts %}
@@ -25,23 +32,23 @@
         var $addSchoolLink = $('<a href="#" class="add_school_link">Add a School</a>');
         var $newLinkLi = $('<li></li>').append($addSchoolLink);
 
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             // Get the ul that holds the collection of tags
             $collectionHolder = $('ul.appliedSchools');
             {% if (readonly == false) %}
-                // add a delete link to all of the existing tag form li elements
-                $collectionHolder.find('li').each(function() {
-                    addTagFormDeleteLink($(this));
-                });
+            // add a delete link to all of the existing tag form li elements
+            $collectionHolder.find('li').each(function () {
+                addTagFormDeleteLink($(this));
+            });
 
-                // add the "add a tag" anchor and li to the tags ul
-                $collectionHolder.append($newLinkLi);
-            {%  endif %}
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+            {% endif %}
             // count the current form inputs we have (e.g. 2), use that as the new
             // index when inserting a new item (e.g. 2)
             $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-            $addSchoolLink.on('click', function(e) {
+            $addSchoolLink.on('click', function (e) {
                 // prevent the link from creating a "#" on the URL
                 e.preventDefault();
 
@@ -51,10 +58,10 @@
         });
 
         function addTagFormDeleteLink($tagFormLi) {
-            var $removeFormA = $(' <a href="#">X</a>');
+            var $removeFormA = $('<a href="#">X</a>');
             $tagFormLi.append($removeFormA);
 
-            $removeFormA.on('click', function(e) {
+            $removeFormA.on('click', function (e) {
                 // prevent the link from creating a "#" on the URL
                 e.preventDefault();
 

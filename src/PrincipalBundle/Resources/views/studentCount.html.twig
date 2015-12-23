@@ -2,14 +2,21 @@
 
 {% block title %}Profile{% endblock %}
 
+{% form_theme form 'AppBundle:Form:bootstrap_3_layout.html.twig' %}
+
 {% block body %}
     <h1>{{ school.name }}</h1>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <dev class="container-fluid">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </dev>
 
-    <table class="table table-condensed" style="width: 450pt" align="center">
+    <table class="table table-condensed" style="width: 90%" align="center">
         <thead>
         <tr>
             <th>Student Index</th>
@@ -24,8 +31,8 @@
             <tr>
                 <td>{{ stuApplication.studentIndex }}</td>
                 <td>{{ stuApplication.name }}</td>
-                <td>{{ stuApplication.marks}}</td>
-                <td>{{ stuApplication.approved}}</td>
+                <td>{{ stuApplication.marks }}</td>
+                <td>{{ stuApplication.approved }}</td>
                 <td><a href="{{ path('viewPage') }}?id={{ stuApplication.studentIndex }}">View</a></td>
             </tr>
         {% endfor %}

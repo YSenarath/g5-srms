@@ -3,9 +3,5 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
-    <a href="{{ path('cutoffPage') }}">Add/ Update cutoff marks</a><br>
-    <a href="{{ path('initSystemPage') }}">Init System</a><br>
-    <a href="{{ path('resetPasswordPage') }}">Reset passwords</a><br>
-    <a href="{{ path('changeDeadlinePage') }}">Edit Deadline</a><br>
     <p>Current Deadline: {{ deadline }}</p>
 {% endblock %}
