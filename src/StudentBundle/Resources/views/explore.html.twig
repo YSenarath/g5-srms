@@ -3,22 +3,52 @@
 {% block title %}Explores{% endblock %}
 
 {% block body %}
-<table class="table table-condensed" style="width: 50%" align="center">
-<thead>
-    <tr>
-        <th>School</th>
-        <th>Address</th>
-        <th>Cutoff</th>
-    </tr>
-</thead>
-    <tbody>
-        {% for school in schools %}
-        <tr>
-        <td>{{ school.name }}</td>
-        <td>{{ school.address }}</td>
-        <td>{{ school.cutoff}}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+    <h1 align="center" class="title1">
+        School Cutoff
+    </h1>
+
+    <hr>
+    <div>
+    {% for schoolList in schoolCutoff %}
+        <row ><div ><h3 class="header1">Medium : {{ schoolList.schoolMedium }}</h3><hr class="header1"></div></row>
+        <div class="container">
+            <div>
+
+            {% for schools in schoolList %}
+                {%  if (schools != 'Sinhala')  and (schools != 'Tamil') %}
+                <row ><div class="success" ><h4>{{ schools.schoolType }} School </h4></div></row>
+
+                <table class="table table-striped" style="width: 50%" align="center">
+                    <thead>
+                    <tr >
+                        <th>No.</th>
+                        <th>School</th>
+                        <th>Address</th>
+                        <th>Cutoff</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for school in schools %}
+                        {%  if (school != 'Boys') and (school != "Girls") and (school != "Mix"  ) %}
+                        <tr>
+                            <td class="tableCol">{{ school.no }}</td>
+                            <td class="tableCol">{{ school.name }}</td>
+                            <td class="tableCol">{{ school.address }}</td>
+                            <td >{{ school.cutoff}}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                {% endif %}
+            {% endfor %}
+
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
 {% endblock %}

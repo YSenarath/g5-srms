@@ -7,13 +7,15 @@
 
 
 {% block body %}
+
     <h1 align="center" class="title1">
-        School Cutoff
+        Assign Principal
     </h1>
     <hr>
+
     <dev class="container-fluid">
         <div class="col-md-2"></div>
-        <div class="col-md-6">
+        <div class="col-md-6 padd2">
             {{ form_start(form) }}
             {{ form_widget(form) }}
             {{ form_end(form) }}
@@ -21,6 +23,11 @@
     </dev>
 
 
+    <div class="container success padd3" >
+        <h3>Generated Acount Details:</h3>
+        <div padd><h4>Username : sample123</h4></div>
+        <div padd><h4>Password : pass123</h4></div>
+    </div>
 
 
 {% endblock %}

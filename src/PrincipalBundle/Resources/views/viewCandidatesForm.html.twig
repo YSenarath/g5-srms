@@ -1,21 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends '@Principal/base.html.twig' %}
 
 {% block title %}Application{% endblock %}
 
 {% form_theme form 'AppBundle:Form:bootstrap_3_layout.html.twig' %}
 
 {% block body %}
-
-    <h1 align="center" class="title1">
-        Application
-    </h1>
-
-
-    <hr>
-
-    <dev class="container-fluid ">
+    <dev class="container-fluid">
         <div class="col-md-2"></div>
-        <div class="col-md-6 " >
+        <div class="col-md-6">
             {{ form_start(form) }}
             {{ form_errors(form) }}
             {{ form_row(form.studentIndex) }}
@@ -28,7 +20,16 @@
                     <li> {{ form_widget(school) }} </li>
                 {% endfor %}
             </ul>
+
+            {{ form_row(form.medium) }}
+            {{ form_row(form.gender) }}
+            {{ form_row(form.birthday) }}
+            {{ form_row(form.guardiansName) }}
+            {{ form_row(form.address) }}
+
+
             {{ form_end(form) }}
+
         </div>
     </dev>
 {% endblock %}

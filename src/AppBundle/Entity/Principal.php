@@ -13,10 +13,27 @@ class Principal
     protected $userName;
     protected $password;
 
+    protected $schoolName;
     function __construct($userName, $password)
     {
         $this->userName = $userName;
         $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSchoolName()
+    {
+        return $this->schoolName;
+    }
+
+    /**
+     * @param mixed $schoolName
+     */
+    public function setSchoolName($schoolName)
+    {
+        $this->schoolName = $schoolName;
     }
 
     public function getPassword()

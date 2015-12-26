@@ -3,14 +3,20 @@
 {% block title %}Explores{% endblock %}
 
 {% block body %}
-    <h1>{{ school.name }}</h1>
+
+    <h1 align="center" class="title1">
+        Selected Candidates
+    </h1>
+    <hr>
+    <div class="container">
+    <div class="success" ><h2>{{ school.name }} </h2></div>
     <table class="table table-condensed" style="width: 90%" align="center">
         <thead>
         <tr>
             <th>Student Index</th>
             <th>Name</th>
             <th>Marks</th>
-            <th>Approved</th>
+
             <th>View</th>
         </tr>
         </thead>
@@ -20,10 +26,11 @@
                 <td>{{ stuApplication.studentIndex }}</td>
                 <td>{{ stuApplication.name }}</td>
                 <td>{{ stuApplication.marks}}</td>
-                <td>{{ stuApplication.approved}}</td>
+
                 <td><a href="">View</a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    </div>
 {% endblock %}

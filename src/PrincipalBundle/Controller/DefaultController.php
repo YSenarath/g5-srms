@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,29 +31,42 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/principal/accept", name="acceptPage")
+     * @Route("/principal_accept", name="acceptPage")
      * @param Request $request
      * @return Response|void
      */
     public function acceptAction(Request $request)
     {
-        $principal = 'principal of RC';
+        $principal = 'principal of AC';
         $school = $this->getSchool($principal);
-        if (InMemoryStorage::getInstance()->getEndDate() > strtotime(date("Y-m-d"))) {
-            return $this->studentCountAction($school, $request);
-        } else {
+
             return $this->studentApplicationAction($school);
-        }
+
     }
 
     /**
-     * @Route("/principal/approve", name="approvePage")
+     * @Route("/principal_vacancies", name="vacancyPage")
+     * @param Request $request
+     * @return Response|void
+     */
+    public function regesterVacanciesAction(Request $request)
+    {
+        $principal = 'principal of DV';
+        $school = $this->getSchool($principal);
+        if (InMemoryStorage::getInstance()->getEndDate() > strtotime(date("Y-m-d"))) {
+            return $this->studentCountAction($school, $request);
+        }
+
+    }
+
+    /**
+     * @Route("/principal_approve", name="approvePage")
      * @param Request $request
      * @return Response|void
      */
     public function approveAction(Request $request)
     {
-        $principal = 'principal of nalanda';
+        $principal = 'principal of DV';
         $school = $this->getSchool($principal);
         if (InMemoryStorage::getInstance()->getEndDate() > strtotime(date("Y-m-d"))) {
             return $this->listStudentApplicationsAction($school, false);
@@ -62,13 +76,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/principal/view", name="viewPage")
+     * @Route("/principal_view", name="viewPage")
      * @param Request $request
      * @return Response|void
      */
     public function viewStudentAction(Request $request)
     {
-        $principal = 'principal of RC';
+        $principal = 'principal of DV';
         $studentId = $request->query->get('id');
         $student = $this->getStudent($studentId);
         return $this->generateReadOnlyApplicationForm($request, InMemoryStorage::getInstance(), $student);
@@ -134,8 +148,8 @@ class DefaultController extends Controller
 
     public function studentCountAction(School $school, Request $request) {
         $form = $this->createFormBuilder($school)
-            ->add('noOfStudents', IntegerType::class)
-            ->add('Save', SubmitType::class, array('label' => 'Update Student Count'))
+            ->add('noOfStudents', IntegerType::class,  array('label' => 'No of Vacancies'))
+            ->add('Save', SubmitType::class, array('label' => 'Update Student Vacancies'))
             ->getForm();
 
         $form->handleRequest($request);
@@ -182,12 +196,13 @@ class DefaultController extends Controller
     public function generateReadOnlyApplicationForm($request, $inMem, $student) {
         $application = $student->getApplication();
         $schools = $inMem->getSchools();
-        $medium = array('sinhala'=>'Sinhala', 'English'=>'English', 'Tamil'=>'Tamil');
+        $medium = array('Sinhala'=>'Sinhala', 'Tamil'=>'Tamil');
         $gender = array('Male'=>'Male', 'Female'=>'Female');
         $form = $this->createFormBuilder($application)
             ->add('name', TextType::class, array('attr' => array('readonly' => 'true'),))
             ->add('currentSchool', ChoiceType::class, array(
                 'choices' => $schools,
+                'data' =>  $schools['Dharmapala Vidyalaya'],
                 'choices_as_values' => true,
                 'attr' => array('readonly' => 'true'),))
             ->add('medium', ChoiceType::class, array(
@@ -202,8 +217,8 @@ class DefaultController extends Controller
                 'input'  => 'timestamp',
                 'widget' => 'choice',
                 'attr' => array('readonly' => 'true'),))
-            ->add('guardiansName', TextType::class, array('attr' => array('readonly' => 'true'),))
-            ->add('address', TextType::class, array('attr' => array('readonly' => 'true'),))
+            ->add('guardiansName', TextType::class, array('data' =>'G.D Senerathe', 'attr' => array('readonly' => 'true'),))
+            ->add('address', TextType::class, array('data' =>'121/3, Dedunu MW, Pannipitiya', 'attr' => array('readonly' => 'true'),))
 
             ->add('studentIndex', TextType::class, array('attr' => array('readonly' => 'true'),))
             ->add('marks', IntegerType::class, array('attr' => array('readonly' => 'true'),))
@@ -217,6 +232,10 @@ class DefaultController extends Controller
                 'allow_delete' => true,
                 'attr' => array('readonly' => 'true'),
             ))
+            //by jnj temporary
+            ->add('comment', TextareaType::class, array('label' => 'Comments' ,))
+
+
             ->getForm();
 
         $form->handleRequest($request);

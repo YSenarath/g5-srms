@@ -15,8 +15,30 @@ class School
     public $cutoff;
     public $principal;
     public $noOfStudents;
+    public $no;
+    public $medium;
+    public $status;
 
-    function __construct($name, $address, $cutoff) {
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+    public $type;
+    public $district;
+
+    function __construct($no,$name, $address, $cutoff) {
+        $this->no = $no;
         $this->name = $name;
         $this->address = $address;
         $this->cutoff = $cutoff;
@@ -24,6 +46,37 @@ class School
         $this->noOfStudents = 0;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getMedium()
+    {
+        return $this->medium;
+    }
+
+    /**
+     * @param mixed $medium
+     */
+    public function setMedium($medium)
+    {
+        $this->medium = $medium;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNo()
+    {
+        return $this->no;
+    }
+
+    /**
+     * @param mixed $no
+     */
+    public function setNo($no)
+    {
+        $this->no = $no;
+    }
     public function getName()
     {
         return $this->name;

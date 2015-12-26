@@ -3,32 +3,43 @@
 {% block title %}Explores{% endblock %}
 
 {% block body %}
-    <h1>{{ school.name }}</h1>
-    <table class="table table-condensed" style="width: 90%" align="center">
-        <thead>
-        <tr>
-            <th>Student Index</th>
-            <th>Name</th>
-            <th>Marks</th>
-            <th>View<a></a></th>
-            {% if dead == false %}
-                <th>Approved</th>
-            {% endif %}
-        </tr>
-        </thead>
-        <tbody>
-        {% for stuApplication in applications %}
-            <tr>
-                <td>{{ stuApplication.studentIndex }}</td>
-                <td>{{ stuApplication.name }}</td>
-                <td>{{ stuApplication.marks}}</td>
-                <td>{{ stuApplication.approved}}</td>
-                <td><a href="{{ path('viewPage') }}?id={{ stuApplication.studentIndex }}">View</a></td>
-                {% if dead == false %}
-                    <td><a href="">Approve</a></td>
-                {% endif %}
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+
+    <h1 align="center" class="title1">
+        Verify Applications
+    </h1>
+    <hr>
+
+    <h4 class="padd" style="color: #990033; font-weight:bold ">Verify Applications Before : 2015-12-31</h4>
+
+
+        <div class="container">
+            <div class="success" ><h2>{{ school.name }} </h2></div>
+            <table class="table table-condensed" style="width: 90%" align="center">
+                <thead>
+                <tr>
+                    <th>Student Index</th>
+                    <th>Name</th>
+                    <th>Marks</th>
+                    <th>View<a></a></th>
+                    {% if dead == false %}
+                        <th>Approved</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for stuApplication in applications %}
+                    <tr>
+                        <td>{{ stuApplication.studentIndex }}</td>
+                        <td>{{ stuApplication.name }}</td>
+                        <td>{{ stuApplication.marks}}</td>
+
+                        <td><a href="{{ path('viewPage') }}?id={{ stuApplication.studentIndex }}">View</a></td>
+                        {% if dead == false %}
+                            <td><a href="">Not Approved</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 {% endblock %}

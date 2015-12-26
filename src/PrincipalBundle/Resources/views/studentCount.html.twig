@@ -5,7 +5,12 @@
 {% form_theme form 'AppBundle:Form:bootstrap_3_layout.html.twig' %}
 
 {% block body %}
-    <h1>{{ school.name }}</h1>
+
+    <h1 align="center" class="title1">
+        {{ school.name }}
+    </h1>
+    <hr>
+    <h4 class="padd" style="color: #990033; font-weight:bold ">Submit Vacancies Before : 2015-12-31</h4>
 
     <dev class="container-fluid">
         <div class="col-md-2"></div>
@@ -16,26 +21,5 @@
         </div>
     </dev>
 
-    <table class="table table-condensed" style="width: 90%" align="center">
-        <thead>
-        <tr>
-            <th>Student Index</th>
-            <th>Name</th>
-            <th>Marks</th>
-            <th>Approved</th>
-            <th>View</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for stuApplication in applications %}
-            <tr>
-                <td>{{ stuApplication.studentIndex }}</td>
-                <td>{{ stuApplication.name }}</td>
-                <td>{{ stuApplication.marks }}</td>
-                <td>{{ stuApplication.approved }}</td>
-                <td><a href="{{ path('viewPage') }}?id={{ stuApplication.studentIndex }}">View</a></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+
 {% endblock %}

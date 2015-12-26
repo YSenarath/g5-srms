@@ -25,6 +25,7 @@ class Application
     public $appliedSchools;
 
     public $approved;
+    public $comment;
 
     function __construct($studentIndex, $marks)
     {
@@ -33,6 +34,22 @@ class Application
         $this->name = '';
         $this->appliedSchools = array();
         $this->approved = false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param mixed $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
     }
 
     public function getMarks()

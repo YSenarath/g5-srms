@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class DefaultController extends Controller
 {
@@ -28,10 +29,35 @@ class DefaultController extends Controller
     {
         // return $this->render('StudentBundle::index.html.twig'); // ==
         $engine = $this->container->get('templating');
-        $content = $engine->render('StudentBundle::index.html.twig', array('indexNo'=>'1154678882', 'marks'=>125));
+        $content = $engine->render('StudentBundle::index.html.twig', array('deadline'=> '2015-12-13','year'=>'2015', 'medium'=>'Sinhala' , 'fullName'=> 'Yasas Pramusitha Senarath', 'indexNo'=>'1154678882', 'marks'=>125));
 
         return $response = new Response($content);
     }
+
+    /**
+     * @Route("/ad", name="homepage_ad")
+     */
+    public function indexAfterDeadlineAction()
+    {
+        // return $this->render('StudentBundle::index.html.twig'); // ==
+        $engine = $this->container->get('templating');
+        $content = $engine->render('StudentBundle::indexAfterDeadline.html.twig', array('selectedSchool'=> 'Nalanda College, Colombo 10','year'=>'2015', 'medium'=>'Sinhala' , 'fullName'=> 'Mikila Shehan Wickramarathne', 'indexNo'=>'1154678882', 'marks'=>175));
+
+        return $response = new Response($content);
+    }
+
+    /**
+     * @Route("/district", name="district_cutoff")
+     */
+    public function districtCutoffAction()
+    {
+        // return $this->render('StudentBundle::index.html.twig'); // ==
+        $engine = $this->container->get('templating');
+        $content = $engine->render('StudentBundle::districtCutoff.html.twig');
+
+        return $response = new Response($content);
+    }
+
 
     /**
      * @Route("/apply", name="applypage")
@@ -51,8 +77,9 @@ class DefaultController extends Controller
 
     public function generateWritableApplicationForm($request, $inMem, $student) {
         $application = $student->getApplication();
+
         $schools = $inMem->getSchools();
-        $medium = array('sinhala'=>'Sinhala', 'English'=>'English', 'Tamil'=>'Tamil');
+        $medium = array('Sinhala'=>'Sinhala',  'Tamil'=>'Tamil');
         $gender = array('Male'=>'Male', 'Female'=>'Female');
         $form = $this->createFormBuilder($application)
             ->add('name', TextType::class, array())
@@ -66,7 +93,6 @@ class DefaultController extends Controller
                 'choices' => $gender,
                 'choices_as_values' => true,))
             ->add('birthday', DateType::class, array(
-                'input'  => 'timestamp',
                 'widget' => 'choice',))
             ->add('guardiansName', TextType::class, array())
             ->add('address', TextType::class, array())
@@ -98,12 +124,12 @@ class DefaultController extends Controller
     public function generateReadOnlyApplicationForm($request, $inMem, $student) {
         $application = $student->getApplication();
         $schools = $inMem->getSchools();
-        $medium = array('sinhala'=>'Sinhala', 'English'=>'English', 'Tamil'=>'Tamil');
+        $medium = array('Sinhala'=>'Sinhala',  'Tamil'=>'Tamil');
         $gender = array('Male'=>'Male', 'Female'=>'Female');
         $form = $this->createFormBuilder($application)
             ->add('name', TextType::class, array('attr' => array('readonly' => 'true'),))
             ->add('currentSchool', ChoiceType::class, array(
-                'choices' => $schools,
+                'choices' => array($schools['Sinhala']['Mix School']),
                 'choices_as_values' => true,
                 'attr' => array('readonly' => 'true'),))
             ->add('medium', ChoiceType::class, array(
@@ -118,8 +144,8 @@ class DefaultController extends Controller
                 'input'  => 'timestamp',
                 'widget' => 'choice',
                 'attr' => array('readonly' => 'true'),))
-            ->add('guardiansName', TextType::class, array('attr' => array('readonly' => 'true'),))
-            ->add('address', TextType::class, array('attr' => array('readonly' => 'true'),))
+            ->add('guardiansName', TextType::class, array('data' =>'G.D Senerathe', 'attr' => array('readonly' => 'true'),))
+            ->add('address', TextType::class, array('data' =>'121/3, Dedunu MW, Pannipitiya', 'attr' => array('readonly' => 'true'),))
 
             ->add('studentIndex', TextType::class, array('attr' => array('readonly' => 'true'),))
             ->add('marks', IntegerType::class, array('attr' => array('readonly' => 'true'),))
@@ -153,12 +179,13 @@ class DefaultController extends Controller
     public function exploreAction()
     {
         $inMem = InMemoryStorage::getInstance();
-        $schools = $inMem->getSchools();
+        $schools = $inMem->getSchool();
 
         if ($inMem->getEndDate() > strtotime(date("Y-m-d"))) {
             // return $this->render('StudentBundle::index.html.twig'); // ==
             $engine = $this->container->get('templating');
-            $content = $engine->render('StudentBundle::explore.html.twig', array('schools'=>$schools));
+
+            $content = $engine->render('StudentBundle::explore.html.twig', array('schoolCutoff'=>$schools));
             return $response = new Response($content);
         } else {
             return new Response('<html><body>Expired!</body></html>');

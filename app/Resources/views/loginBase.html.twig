@@ -9,20 +9,16 @@
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="{{ asset('bundles/framework/css/loginStyles.css') }}"/>
     <!-- Latest compiled JavaScript -->
     {#Dropdowns dont work because of this#}
     {#<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>#}
-
 
     {#Custom dropdown#}
     <link rel="stylesheet" href="{{ asset('bundles/framework/css/customNavbar.css') }}"/>
 
     {#Foter style#}
     <link rel="stylesheet" href="{{ asset('bundles/framework/css/footerStyle.css') }}"/>
-
-    {#my styles#}
-    <link rel="stylesheet" href="{{ asset('bundles/framework/css/myStyle.css') }}"/>
 
 
     <style type="text/css">
@@ -35,39 +31,31 @@
 {% block header %}
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <div class="active">
+            <ui>
+                <div class="navbar-header">
                     <a class="navbar-brand" href="#" class="pull-left"  > <row><img src="../bundles/framework/images/gov_logo1.png" width="50px" /> G5-SRMS </row>  </a>
+
                 </div>
-            </div>
-            <div>
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ path('homepage') }}">Profile</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="true">Check Cutoff<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href=" # ">District Cutoffs</a></li>
-                            <li><a href="{{ path('explorepage') }}">School Cutoff</a></li>
-                        </ul>
-                    </li>
+                <div>
 
-
-
-                </ul>
-            </div>
-
+                </div>
+            </ui>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href=" #">Contact Us</a></li>
+
                 <li class="dropdown">
+                    {% set user = app.user %}
+                    {% if (user != null) %}
                     <a href="#" class="dropdown-toggle glyphicon glyphicon-log-in" data-toggle="dropdown"> SampleUser123<b
                                 class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Profile</a></li>
                         <li><a href="#"> Log Out</a></li>
                     </ul>
-
+                    {% else %}
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                </li>
+                {% endif %}
                 </li>
             </ul>
         </div>

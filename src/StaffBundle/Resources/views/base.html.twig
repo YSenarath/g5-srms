@@ -8,20 +8,71 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+    {#Custom dropdown#}
+    <link rel="stylesheet" href="{{ asset('bundles/framework/css/customNavbar.css') }}"/>
+
+    {#Foter style#}
+    <link rel="stylesheet" href="{{ asset('bundles/framework/css/footerStyle.css') }}"/>
+
+    {#my styles#}
+    <link rel="stylesheet" href="{{ asset('bundles/framework/css/myStyle.css') }}"/>
+
+
+
 </head>
 <body>
 {% block header %}
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">E-application</a>
+                <div class="active">
+                    <a class="navbar-brand" href="#" class="pull-left"  > <row><img src="../bundles/framework/images/gov_logo1.png" width="50px" /> G5-SRMS </row>  </a>
+                </div>
             </div>
             <div>
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ path('cutoffPage') }}">Add/ Update cutoff marks</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="true">Add Cutoff<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href=" # ">Add District Cutoffs</a></li>
+                            <li><a href="{{ path('cutoffPage') }}">Add School Cutoff</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="true">Manage Schools<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href=" # ">Add/Update School</a></li>
+                            <li><a href="#">Assign Principals</a></li>
+                        </ul>
+                    </li>
                     <li><a href="{{ path('initSystemPage') }}">Init System</a></li>
-                    <li><a href="{{ path('resetPasswordPage') }}">Reset passwords</a></li>
+
                     <li><a href="{{ path('changeDeadlinePage') }}">Edit Deadline</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="true">Manage Accounts<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('resetPasswordPage') }}">Reset passwords</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle glyphicon glyphicon-log-in" data-toggle="dropdown"> SampleUser123<b
+                                    class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#"> Log Out</a></li>
+                        </ul>
+
+                    </li>
                 </ul>
             </div>
         </div>

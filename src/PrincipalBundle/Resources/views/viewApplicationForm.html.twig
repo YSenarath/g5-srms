@@ -20,7 +20,21 @@
                     <li> {{ form_widget(school) }} </li>
                 {% endfor %}
             </ul>
+
+            {{ form_row(form.medium) }}
+            {{ form_row(form.gender) }}
+            {{ form_row(form.birthday) }}
+            {{ form_row(form.guardiansName) }}
+            {{ form_row(form.address) }}
+
+            <hr>
+            {{ form_row(form.comment) }}
             {{ form_end(form) }}
+            <row>
+
+                <div >  <input type="submit" value="Approve" class="btn btn-primary pull-right"/> </div>
+                <div style="padding-right: 100px" > <input type="reset" value="Reject" class="btn btn-danger pull-right"  /></div>
+            </row>
         </div>
     </dev>
 {% endblock %}

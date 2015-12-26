@@ -6,10 +6,11 @@
     <h1 align="center" class="title1">
         Your Profile
     </h1>
+
+
     <hr>
 
     <div class="container">
-        <h4 style="color: #990033; font-weight:bold ">Submit Applications Before : {{ deadline }}</h4>
         <div class="row">
             <table class="table">
                 <tr>
@@ -44,8 +45,11 @@
             </table>
         </div>
 
-
-
-        <row><a href="{{ path('applypage') }}" class="web">Go to Application Form</a> |  <a href="#"  class="web">View District Cutoff</a></row>
+        <hr>
+        <row ><div class="success1" ><h3>Selected School : {{ selectedSchool }}</h3></div></row>
+        <hr>
+        <div><a href="#" class="web">Contact us</a> if you did not receive a letter from your selected school within two weeks.</div>
+        <br>
+        <row><a href="#" class="web">View School Cutoff</a> |  <a href="#" class="web">View District Cutoff</a></row>
     </div>
 {% endblock %}
