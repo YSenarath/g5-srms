@@ -2,9 +2,11 @@
 
 namespace StudentBundle\Controller;
 
+use AppBundle\Controller\ApplicationController;
 use AppBundle\Controller\InMemoryStorage;
 use AppBundle\Entity\Application;
 use AppBundle\Entity\School;
+use AppBundle\Entity\Student;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -68,6 +70,12 @@ class DefaultController extends Controller
     {
         $inMem = InMemoryStorage::getInstance();
         $student = $inMem->getStudents()[0];
+
+        $conn = $this->get('database_connection');
+        $app_controller = new ApplicationController($conn);
+        $app_results = $app_controller->applicationSearch($student->getIndexNumber());
+        $student = $app_results;
+
         if ($inMem->getEndDate() > strtotime(date("Y-m-d"))) {
             return $this->generateWritableApplicationForm($request, $inMem, $student);
         } else {
@@ -75,9 +83,14 @@ class DefaultController extends Controller
         }
     }
 
-    public function generateWritableApplicationForm($request, $inMem, $student) {
+    /**
+     * @param $request
+     * @param $inMem
+     * @param Student $student
+     * @return Response
+     */
+    public function generateWritableApplicationForm($request, $inMem, Student $student) {
         $application = $student->getApplication();
-
         $schools = $inMem->getSchools();
         $medium = array('Sinhala'=>'Sinhala',  'Tamil'=>'Tamil');
         $gender = array('Male'=>'Male', 'Female'=>'Female');
@@ -113,12 +126,22 @@ class DefaultController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->UpdateApplication($student);
         }
 
         return $this->render('StudentBundle::application.html.twig', array(
             'form' => $form->createView(),
             'readonly' => false,
         ));
+    }
+
+    /**
+     * @param Student $student
+     */
+    public function UpdateApplication(Student $student) {
+        $conn = $this->get('database_connection');
+        $app_controller = new ApplicationController($conn);
+        $app_controller->applicationUpdate($student);
     }
 
     public function generateReadOnlyApplicationForm($request, $inMem, $student) {

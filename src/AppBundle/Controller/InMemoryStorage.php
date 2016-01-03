@@ -20,6 +20,7 @@ class InMemoryStorage
     protected $schools;
     protected $schools1;
     protected $endDate;
+
     public $deadline;
 
     protected function __construct()
@@ -234,5 +235,9 @@ class InMemoryStorage
     public function addSchool(School $school)
     {
         $this->schools[$school->name] = $school;
+    }
+
+    public function getSchoolByName($school_name) {
+        return $this->schools1[$school_name];
     }
 }

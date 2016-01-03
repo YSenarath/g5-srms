@@ -234,10 +234,7 @@ class DefaultController extends Controller
             ))
             //by jnj temporary
             ->add('comment', TextareaType::class, array('label' => 'Comments' ,))
-
-
             ->getForm();
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

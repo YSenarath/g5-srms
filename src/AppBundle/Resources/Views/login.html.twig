@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-centered col-lg-3 table-bordered ">
                 <div class="wrath-content-box"><span>Log In</span></div>
-
+                <form action="{{ path('login_check') }}" method="post">
                     <div class="wrath-content-box">
                         <div class="form-group">
                             <input type="text" id="username" class="form-control" placeholder="Username" name="_username"
@@ -25,7 +25,9 @@
                                    name="_password"/>
                         </div>
                         <div class="col-sm-7">
-
+                            {% if error %}
+                                <div class="error-message">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
                         </div>
                         <div class="col-sm-5">
                             <div class="form-group text-right">

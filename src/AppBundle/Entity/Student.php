@@ -8,11 +8,18 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="student")
+ */
 class Student
 {
     protected $indexNumber;
+
     protected $password;
+
     protected $application;
 
     function __construct($indexNumber, $password, $marks)
